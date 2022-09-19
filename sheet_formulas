@@ -1,0 +1,65 @@
+/**
+These are the formulas for the Golden Boy sheet
+*/
+Rating ID
+=QUERY({'Q3 Service Data'!$A$2:$J})
+
+SEM Field Form (Rough)
+=isnumber(ArrayFormula(match($A2&$K$1,'Q3 File Data'!$A:$A&'Q3 File Data'!$B$1:$B,0)))
+
+EcoSlect Rough Checklist
+=isnumber(ArrayFormula(match($A2&$L$1,'Q3 File Data'!$A:$A&'Q3 File Data'!$B$1:$B,0)))
+
+RESNET Registry ID
+=isnumber(vlookup($B2,'Q3 Service Data'!$B$2:$K,10, FALSE))
+
+SEM Field Form (Final)
+=isnumber(ArrayFormula(match($A2&$N$1,'Q3 File Data'!$A:$A&'Q3 File Data'!$B$1:$B,0)))
+
+EcoSlect Final Checklist
+=isnumber(ArrayFormula(match($A2&$O$1,'Q3 File Data'!$A:$A&'Q3 File Data'!$B$1:$B,0)))
+
+ESv3 Rev 9 - Rater Field Checklist
+=or(isnumber(ArrayFormula(MATCH($A2&$P$1,'Q3 File Data'!$A:$A&'Q3 File Data'!$B$1:$B,0))),isnumber(ArrayFormula(MATCH($A2&"ESv3 - Rater Field Checklist",'Q3 File Data'!$A:$A&'Q3 File Data'!$B$1:$B,0))))
+
+Code - Duct Test Report
+=isnumber(ArrayFormula(match(A2&$Q$1,'Q3 File Data'!$A:$A&'Q3 File Data'!$B$1:$B,0)))
+
+Multi-Point BD Report
+=isnumber(ArrayFormula(match(A2&$R$1,'Q3 File Data'!$A:$A&'Q3 File Data'!$B$1:$B,0)))
+
+Front Elevation Photo
+=isnumber(ArrayFormula(match(A2&$S$1,'Q3 File Data'!$A:$A&'Q3 File Data'!$B$1:$B,0)))
+
+KPI Final Points
+=COUNTIF(K2:S2,TRUE)
+
+KPI Points Needed
+=if(AND(or(F2="Final",F2="Code"),J2=TRUE),index(REF!$A:$D,match(D2&F2,REF!A:A&REF!C:C,0),4)-1,index(REF!$A:$D,match(D2&F2,REF!A:A&REF!C:C,0),4))
+
+KPI Points
+=if(and(D2="Code",J2=TRUE),"N/A",if(I2=TRUE,"N/A",if(T2>U2,1,if(U2=0,"N/A",T2/U2))))
+
+Print Que 
+=if(X2=FALSE,"N/A",if(isnumber(match(B2,'P Override'!$A:$A,0)),"Print Override", if(AC2="Blacklist","Blacklist",if(OR(AE2,AF2), "COMPLETE", IF(J2 & M2 = "FALSETRUE","Ready to Print", if(J2="TRUE","Reinspect", if(J2 & M2 ="TRUETRUE","Ready to Print", "Not Ready")))))))
+
+HERS Certificate - Ekotrope
+=isnumber(ArrayFormula(match(A2&$AE$1,'Q3 File Data'!$A:$A&'Q3 File Data'!$B:$B,0)))
+
+HERS Certificate - REM/Rate
+=isnumber(ArrayFormula(match(A2&$AF$1,'Q3 File Data'!$A:$A&'Q3 File Data'!$B:$B,0)))
+
+Auto QA Status
+=iferror(if(X2=FALSE,"N/A",VLOOKUP(A2,'Jobs to Review'!A:AL,37,FALSE)),"Passed")
+
+
+/**
+These are the formulas for Emil's Not Ready Queue sheet
+*/
+
+A1
+=countif(M2:M,FALSE)
+
+A2
+=sort(filter('Golden Boy'!A:X,(('Golden Boy'!AD:AD="Not Ready")+('Golden Boy'!N:N=FALSE)),'Golden Boy'!X:X=TRUE,'Golden Boy'!I:I=FALSE,'Golden Boy'!J:J=FALSE,'Golden Boy'!G:G>=date(2021,11,2),'Golden Boy'!D:D<>"SystemVision",'Golden Boy'!D:D<>"SystemVision.GreenBuild"),8,TRUE)
+
