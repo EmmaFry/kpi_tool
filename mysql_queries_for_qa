@@ -1,0 +1,15 @@
+/***********************
+reference
+the script: DASH_ServiceID_Deleter_from_db_Emils_Not_Ready_Q.py from KPI-Automation STATIC 
+what it does: reads the list of ids on "Emil's Not Ready Que" sheet then compares with the KPI Auto Tool and checks to see if they exist in DASH, 
+if they don't exist they're deleted from sem_dash.services
+
+********************/
+
+/**
+to QA an id which should have been deleted from the database
+go into MYSQL and copy this code
+*/
+
+SELECT * FROM sem_dash.service
+WHERE RatingID LIKE '102733 ';
